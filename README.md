@@ -45,6 +45,17 @@ Paquete que alberga funciones más genéricas, como el envío de correos electr�
 ### tmp 
 Carpeta destinada a almacenar archivos de forma temporal; en este caso, contiene una copia del archivo .csv alojado en un bucket S3.
 
+| Id | Date  | Transaction |
+|----|-------|-------------|
+| 0  | 7/15  | +60.5      |
+| 1  | 7/16  | +10.2      |
+| 2  | 7/28  | -10.3      |
+| 3  | 7/29  | -9.7       |
+| 4  | 8/12  | -20.46     |
+| 5  | 8/13  | +11.5      |
+| 4  | 8/14  | -5.52      |
+| 5  | 8/15  | +10        |
+
 ## Variables de Entorno
 
 Es necesario configurar las siguientes variables de entorno en AWS Lambda:
