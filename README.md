@@ -1,55 +1,60 @@
 # stori_challenge
-Proyecto codificado en Golang
 
-## How to test?
-En la siguiente url cambiar el email al que quieras enviar el reporte, el lambda y api-gateway estan configurados para recibir el parametro del email como parte de la misma ruta de forma dinamica, cambia el valor "youremail@gmail.com" por uno deseado: 
+Proyecto desarrollado en Golang.
+
+## Cómo probar
+
+Para probar la funcionalidad, utiliza la siguiente URL. Cambia el correo electrónico al que deseas enviar el reporte. El Lambda y API Gateway están configurados para recibir el parámetro del email como parte de la ruta de forma dinámica. Sustituye "youremail@gmail.com" por el correo deseado:
 
 ```bash
 https://6bl55z8lz6.execute-api.us-west-2.amazonaws.com/dev/accounts/youremail@gmail.com
 ```
 
-Cuando el proceso se ejecute va a hacer el calculo solicitado, enviara un reporte al e-mail ingresado en la url y guardara en una base de datos todas las solicitudes que se vayan solicitando, al terminar el proceso como forma de respuesta en objeto json regresara los valores previamente guardados en la base de datos.
+Cuando se ejecute el proceso, se realizará el cálculo solicitado, se enviará un reporte al email ingresado en la URL y se guardarán en una base de datos todas las solicitudes realizadas. Al finalizar el proceso, se devolverá un objeto JSON con los valores previamente guardados en la base de datos.
 
-##Instalar dependencias
-Antes de compilar es necesario tener tolas las dependencias instalas, lo podemos hacer con el siguiente comando:
+## Instalación de dependencias
+
+Antes de compilar el proyecto, es necesario tener instaladas todas las dependencias. Esto se puede hacer con el siguiente comando:
 
 ```bash
 go mod tidy
 ```
 
-## ¿Como construir el paquete para deployar en aws lambda?
-En la raiz del proyecto hay un archivo Makefile con los comandos necesarios, solo tendrias que ejecutar el comando siguiente en la misma raiz del proyecto, eso te daria como resultado el archivo lambda-handler.zip, ese zip lo subimos al lamba previamente configurado y listo.
+## Cómo construir el paquete para desplegar en AWS Lambda
+
+En la raíz del proyecto hay un archivo `Makefile` que contiene los comandos necesarios. Solo necesitas ejecutar el siguiente comando en la raíz del proyecto, lo que generará el archivo `lambda-handler.zip`. Este archivo se sube al Lambda previamente configurado y estará listo para usarse.
 
 ```bash
 make package_lambda
 ```
 
-## Estructura del proyecto 
+## Estructura del proyecto
 
 ### cmd 
-En esta carpeta encontraras el paquete main y responsable de la ejecuion y ademas un archivo de tipo test para pruebas locales.
+En esta carpeta encontrarás el paquete principal, responsable de la ejecución, así como un archivo de prueba para realizar pruebas locales.
 
 ### db
-Paquete encargado de crear la configuración con la base de datos, ests paquete usa variables de ambiente para obtener el usuario, password, url y nombre de la base de datos, los cuales debemos configurar en lambda.
+Paquete encargado de configurar la conexión con la base de datos. Este paquete utiliza variables de entorno para obtener el usuario, contraseña, URL y nombre de la base de datos, los cuales debemos configurar en Lambda.
 
 ### models
-Paquete para crear modelos relacionados con las tablas de las bases de datos mediante tipos de estructuras ademas de crear a esos modelos metodos para guardar o leer la base de datos.
+Paquete diseñado para crear modelos relacionados con las tablas de la base de datos mediante estructuras. Además, se incluyen métodos para guardar y leer datos en la base de datos.
 
 ### services
-Paquete para alojar funciones mas genericas como el envio de e-mail o la lectura del archivo fuente de datos tipo csv
+Paquete que alberga funciones más genéricas, como el envío de correos electrónicos o la lectura de archivos de datos en formato CSV.
 
 ### tmp 
-Carpeta para alojar archivos de forma temporal, en este caso ahi se encuentra una copia del archivo .csv alojado en un bucket s3
+Carpeta destinada a almacenar archivos de forma temporal; en este caso, contiene una copia del archivo .csv alojado en un bucket S3.
 
+## Variables de Entorno
 
+Es necesario configurar las siguientes variables de entorno en AWS Lambda:
 
-
-
-
-
-
-
-
-
-
-
+| Variable de Entorno | Descripción                                   |
+|----------------------|-----------------------------------------------|
+| `DBNAME`             | Nombre de la base de datos                    |
+| `DBPASS`             | Contraseña para acceder a la base de datos    |
+| `DBPORT`             | Puerto utilizado para la conexión             |
+| `DBURL`              | URL o dirección IP para la conexión          |
+| `DBUSER`             | Nombre de usuario para acceder a la base de datos |
+| `EMAIL`              | Cuenta de Gmail utilizada para enviar correos  |
+| `KEYM`               | Contraseña de la cuenta de correo electrónico  |
