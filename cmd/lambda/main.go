@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello world")
+	fmt.Println("Init Lambda")
 	db.InitDB()
 	lambda.Start(handleRequest)
 }
